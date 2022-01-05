@@ -28,7 +28,6 @@ class Node:
 class LinkedList(object):
     """Create and initialize an instance of linked list."""
     def __init__(self, node = None):
-        self.length = 0
         self.head = node
 
     def insert_head(self, data):
@@ -40,7 +39,6 @@ class LinkedList(object):
         else:
             newNode.next = self.head
             self.head = newNode
-        self.length += 1
 
     def insert_tail(self, data):
         """Insert new node at the tail of the linked list instance."""
@@ -50,7 +48,6 @@ class LinkedList(object):
         while current.next != None:
             current = current.next
         current.next = newNode
-        self.length += 1
 
     def insert_anywhere(self, data, position):
         if position > len(self) or position < 0:
@@ -68,15 +65,74 @@ class LinkedList(object):
                     current = current.next
                 newNode.next = current.next
                 current.next = newNode
-                self.length += 1
 
     def delete_head(self):
         """Delete head of the linked list instance."""
-        if self.length == 0:
-            print('Empty instance of linked list, nothing to delete.')
+        if len(self) == 0:
+            raise ValueError('Empty instance of linked list, nothing to delete.')
         else:
-            self.head == self.head.next
-            self.length -= 1
+            self.head = self.head.next
+
+    # def delete_node(self,node):
+    #     if len(self) == 0:
+    #         raise ValueError('Empty instance of linked list, nothing to delete.')
+    #     else:
+    #         current = self.head
+    #         previous = None
+    #         found = False
+    #
+    #         while not found:
+    #             if current == node:
+    #                 found == True
+    #             elif current is None:
+    #                 raise ValueError('Node not in linked list')
+    #             else:
+    #                 previous = current
+    #                 current = current.next
+    #         if previous is None:
+    #             previous = current
+    #         else:
+    #             previous = current.next
+
+    def delete_node_data(self,data):
+        current = self.head
+        previous = self.head
+        while current.next != None or current.data != data:
+            if current.data == data:
+                previous.next = current.next
+                return
+            else:
+                previous = current
+                current = current.next
+
+    def delete_position(self,position):
+        count = 0
+        current = self.head
+        previous = self.head
+        if position > len(self) or position < 0:
+            raise ValueError('Position does not exist.')
+        else:
+            while current.next != None or count < position:
+                if count == position:
+                    previous.next = current.next
+                    return
+                else:
+                    previous = current
+                    current = current.next
+                count += 1
+
+    def delete_tail(self):
+        """Delete tail of the linked list instance."""
+        if len(self) == 0:
+            raise ValueError('Empty instance of linked list, nothing to delete.')
+        else:
+            current = self.head
+            previous = self.head
+
+            while current.next != None:
+                previous = current
+                current = current.next
+            previous.next = None
 
     def __iter__(self):
         """
@@ -111,10 +167,8 @@ if __name__ == '__main__':
     linked_list.insert_head(4)
     linked_list.insert_head('Hi')
     linked_list.insert_head((5,6))
-    print(linked_list)
     linked_list.insert_tail('Hello, hello.')
     linked_list.insert_tail(100)
-    print(linked_list)
     linked_list.insert_anywhere('Hi hi', 3)
     linked_list.insert_anywhere('Hoopla', 9)
     linked_list.insert_anywhere(999, 0)
@@ -122,3 +176,28 @@ if __name__ == '__main__':
     print(len(linked_list))
     for node in linked_list:
         print(node)
+
+    print('Deleting...')
+    print('Before head delete...')
+    print(linked_list)
+    linked_list.delete_head()
+    print('Delete head...')
+    print(linked_list)
+    linked_list.delete_tail()
+    print('Delete tail...')
+    print(linked_list)
+    # linked_list.delete_node(Node('Hi'))
+    # print('Delete node...')
+    # print(linked_list)
+    print('Deleting data...')
+    print('Before data delete...')
+    print(linked_list)
+    linked_list.delete_node_data('Hi')
+    print('After data delete...')
+    print(linked_list)
+    print('Deleting at position...')
+    print('Before position delete...')
+    print(linked_list)
+    linked_list.delete_position(1)
+    print('After position delete...')
+    print(linked_list)
