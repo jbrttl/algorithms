@@ -1,6 +1,7 @@
 #Doubly linked list
 
 class Node:
+    """Initiate node instance of a list."""
     def __init__(self, data=None, next=None, previous=None):
         self.data = data
         self.next = next
@@ -28,7 +29,7 @@ class Node:
         return f"Node({self.data})"
 
 class DoublyLinkedList(object):
-
+    """Initiate new instance of a doubly linked list."""
     def __init__(self, head=None, next=None):
         self.head = head
 
@@ -57,6 +58,7 @@ class DoublyLinkedList(object):
             newNode.next = None
 
     def __iter__(self):
+        """Turn list to an interrator."""
         node = self.head
         while node:
             yield node.data
@@ -84,5 +86,5 @@ if __name__ == '__main__':
     linked_list.insert_tail((4,5))
     linked_list.insert_tail(100)
     print(linked_list)
-    for i in linked_list:
-         print(i)
+    for node in linked_list:
+         print(node)
