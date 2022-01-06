@@ -12,8 +12,8 @@ class Node:
     def set_next(self, next):
         self.next = next
 
-    def set_previous(self, preivous):
-        self.previous = preivous
+    def set_previous(self, previous):
+        self.previous = previous
 
     def get_data(self):
         return self.data
@@ -47,15 +47,14 @@ class DoublyLinkedList(object):
         elif position == 0:
             self.head.previous = newNode
             newNode.next = self.head
-            self.tail = newNode
+            self.head = newNode
         else:
             temp = self.head
             for i in range(0,position-1):
                 temp = temp.next
-            temp.previous.next = newNode
-            newNode.previous = temp.previous
-            newNode.next = temp
-            temp.previous = newNode
+            newNode.previous = temp
+            temp.next = newNode
+            newNode.next = None
 
     def __iter__(self):
         node = self.head
@@ -84,6 +83,6 @@ if __name__ == '__main__':
     linked_list.insert_tail({'1':'content'})
     linked_list.insert_tail((4,5))
     linked_list.insert_tail(100)
-    #print(linked_list)
+    print(linked_list)
     for i in linked_list:
-        print(i)
+         print(i)
