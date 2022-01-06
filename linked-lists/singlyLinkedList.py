@@ -73,26 +73,27 @@ class LinkedList(object):
         else:
             self.head = self.head.next
 
-    # def delete_node(self,node):
-    #     if len(self) == 0:
-    #         raise ValueError('Empty instance of linked list, nothing to delete.')
-    #     else:
-    #         current = self.head
-    #         previous = None
-    #         found = False
-    #
-    #         while not found:
-    #             if current == node:
-    #                 found == True
-    #             elif current is None:
-    #                 raise ValueError('Node not in linked list')
-    #             else:
-    #                 previous = current
-    #                 current = current.next
-    #         if previous is None:
-    #             previous = current
-    #         else:
-    #             previous = current.next
+    def delete_node(self,node):
+        if len(self) == 0:
+            raise ValueError('Empty instance of linked list, nothing to delete.')
+        else:
+            current = self.head
+            previous = None
+            found = False
+
+            while not found:
+                if current.data == node.data:
+                    found = True
+                elif current is None:
+                    raise ValueError('Node not in linked list')
+                else:
+                    previous = current
+                    current = current.next
+            if previous is None:
+                self.head = current.next
+            else:
+                previous.next = current.next
+                current = current.next
 
     def delete_node_data(self,data):
         current = self.head
@@ -186,9 +187,9 @@ if __name__ == '__main__':
     linked_list.delete_tail()
     print('Delete tail...')
     print(linked_list)
-    # linked_list.delete_node(Node('Hi'))
-    # print('Delete node...')
-    # print(linked_list)
+    linked_list.delete_node(Node(4))
+    print('Delete node...')
+    print(linked_list)
     print('Deleting data...')
     print('Before data delete...')
     print(linked_list)
