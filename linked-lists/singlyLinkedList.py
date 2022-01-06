@@ -135,6 +135,10 @@ class LinkedList(object):
                 current = current.next
             previous.next = None
 
+    def delete_instance(self):
+        """Delete instance of linked list."""
+        self.head = None
+
     def __iter__(self):
         """
         Make Linked List an iterrator.
@@ -202,3 +206,6 @@ if __name__ == '__main__':
     linked_list.delete_position(1)
     print('After position delete...')
     print(linked_list)
+    print('Delete instance...')
+    linked_list.delete_instance()
+    print(f'Empty instance: {linked_list}, Number of items: {len(linked_list)}')
