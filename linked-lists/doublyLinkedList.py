@@ -48,7 +48,6 @@ class DoublyLinkedList(object):
         elif position == 0:
             self.head.previous = newNode
             newNode.next = self.head
-            self.head = newNode
         else:
             temp = self.head
             for i in range(0,position-1):
@@ -111,6 +110,7 @@ if __name__ == '__main__':
     linked_list.insert_head('Hello ,hello')
     linked_list.insert_tail({'1':'content'})
     linked_list.insert_tail((4,5))
+    linked_list.insert_tail(1999)
     linked_list.insert_tail(100)
     print(linked_list)
     for node in linked_list:
