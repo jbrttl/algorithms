@@ -57,6 +57,30 @@ class circularLinkedList(object):
             if position == len(self) - 1:
                 self.tail = newNode
 
+    def delete_head(self):
+        self.delete_anywhere(0)
+
+    def delete_tail(self):
+        self.delete_anywhere(len(self) - 1)
+
+    def delete_anywhere(self,position):
+        if not 0 <= position <= len(self):
+            raise IndexError('Index out of range.')
+        deleteNode = self.head
+        if self.head == self.tail:
+            self.head = self.tail = None
+        elif position == 0:
+            self.tail.next = self.tail.next.next
+            self.head = self.head.next
+        else:
+            temp = self.head
+            for i in range(position - 1):
+                temp = temp.next
+            deleteNode = temp.next
+            temp.next = temp.next.next
+            if position == len(self) - 1:
+                self.tail = temp
+
     def __iter__(self):
         """Turn list to an interrator."""
         node = self.head
@@ -85,4 +109,10 @@ if __name__ == '__main__':
     linked_list.insert_tail(999)
     linked_list.insert_tail('Some string')
     linked_list.insert_tail('Content')
+    print(linked_list)
+    linked_list.delete_head()
+    print(linked_list)
+    linked_list.delete_tail()
+    print(linked_list)
+    linked_list.delete_anywhere(2)
     print(linked_list)
