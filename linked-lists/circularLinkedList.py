@@ -27,6 +27,7 @@ class Node:
         return f"Node({self.data})"
 
 class circularLinkedList(object):
+    """Initialize an instance of circular linked list."""
     def __init__(self, head=None, tail=None):
         self.head = head
         self.tail = tail
