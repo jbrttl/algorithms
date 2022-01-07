@@ -57,6 +57,33 @@ class DoublyLinkedList(object):
             temp.next = newNode
             newNode.next = None
 
+    def delete_head(self):
+        self.delete_anywhere(0)
+
+    def delete_tail(self):
+        self.delete_anywhere(len(self)-1)
+
+    def delete_anywhere(self, position):
+        if not 0 <= position <= len(self)-1:
+            raise IndexError('Index out of range.')
+        delete_node = self.head
+        if len(self) == 1:
+            self.head = self.head.next
+        elif position == 0:
+            self.head = self.head.next
+            self.head.previous = None
+        elif position == len(self) - 1:
+            temp = self.head
+            for i in range(0, position):
+                temp = temp.next
+            temp.previous.next = None
+        else:
+            temp = self.head
+            for i in range(0, position-1):
+                temp = temp.next
+            temp.previous.next = temp.next
+            temp.next.previous = temp.previous
+
     def __iter__(self):
         """Turn list to an interrator."""
         node = self.head
@@ -88,3 +115,14 @@ if __name__ == '__main__':
     print(linked_list)
     for node in linked_list:
          print(node)
+    print("Deleting...")
+    print(linked_list)
+    linked_list.delete_head()
+    print("Deleting head...")
+    print(linked_list)
+    linked_list.delete_tail()
+    print("Deleting tail...")
+    print(linked_list)
+    print("Deleting at specific position...")
+    linked_list.delete_anywhere(2)
+    print(linked_list)
