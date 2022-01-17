@@ -19,18 +19,15 @@ class NPV:
 
     def _get_PV(self):
         """Helper method to calculate PV of cashflows."""
-        discount_factor = np.array([])
-        for year in range(self.years):
-            year_discount_factor = np.array((1+self.drate)**(1+year))
-            discount_factor = np.append(discount_factor, year_discount_factor)
+        years_array = np.arange(1, self.years+1)
+        discount_factor = (1+self.drate)**(years_array)
         return np.round_(self.cashflow/discount_factor)
 
-    def calculate(self):
-
+    def calc_NPV(self):
         pv = self._get_PV()
         return np.sum(pv-self.outflow)
 
 if __name__ == '__main__':
-    npv = NPV(0.1,10000.,6000.,10)
+    npv = NPV(0.1,10000.,0.,10)
     print(npv._get_PV())
-    print(npv.calculate())
+    print(npv.calc_NPV())
