@@ -35,8 +35,8 @@ if __name__ == '__main__':
     paths = 100
     initial_price = 100
     drift = .08
-    volatility = .7
-    dt = 0.1/365
+    volatility = .8
+    dt = 1/365
     T = 1
     price_paths = []
 
