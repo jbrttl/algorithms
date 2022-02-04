@@ -30,6 +30,17 @@ class BrownianMotion:
             self.prices.append(self.current_price)
             self.T -= self.dt # Account for the step in time
 
+class EuropeanCallPayoff:
+
+    def __init__(self, strike):
+        self.strike = strike
+
+    def get_payoff(self,stock_price):
+        if stock_price > self.strike:
+            return stock_price - self.strike
+        else:
+            return 0
+
 
 if __name__ == '__main__':
 
@@ -44,6 +55,18 @@ if __name__ == '__main__':
     for i in range(0, paths):
         price_paths.append(BrownianMotion(initial_price, drift, volatility, dt, T).prices)
 
+
+    # European call
+    call_payoffs = []
+    ec = EuropeanCallPayoff(100)
+    risk_free_rate = .01
+
+    for price_path in price_paths:
+        call_payoffs.append(ec.get_payoff(price_path[-1])/(1+risk_free_rate))
+
     for price_path in price_paths:
         plt.plot(price_path)
+
     plt.show()
+
+    print(np.average(call_payoffs)*100)
